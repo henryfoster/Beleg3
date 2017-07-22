@@ -1,10 +1,8 @@
-package Pack1_Bruno;
+package Pack1;
 
 public class Main {
-
-	public static void main(String[] args) {
-		// hi brunoo
-
-	}
-
+	
+	public static void main(String[] args){
+	GUI gui = new GUI();
+}
 }
