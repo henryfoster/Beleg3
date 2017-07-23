@@ -23,7 +23,7 @@ public class Main {
         System.out.println();
         g.ausgabe2();
 
-       // g.knotenneu (5);
+       // g.knotenneu (5);ht
        // g.kanteneu  (8,5,20);
         //g.kanteneu  (8,3,29);
        // g.ausgabe();
