@@ -69,7 +69,7 @@ public class Graph_start {
 			    System.out.println();
 			}
 	  }
-	// weiter Methoden noch zu realisieren
+	// weiter Methoden noch zu realisieren6ruu
 	  
 	  public int indexSuche(int kn){
 		  for(int i = 0; i < knzahl; i++){
