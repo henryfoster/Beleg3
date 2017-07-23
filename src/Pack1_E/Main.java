@@ -14,6 +14,14 @@ public class Main {
         g.kanteneu  (8,3,29);
 
         g.ausgabe();
+        
+        g.ausgabe2();
+        System.out.println();
+        g.knotenloeschen(4);
+        
+        System.out.println();
+        System.out.println();
+        g.ausgabe2();
 
        // g.knotenneu (5);
        // g.kanteneu  (8,5,20);
