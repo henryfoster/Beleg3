@@ -4,9 +4,9 @@ public class knoten {
 
 	String name;
 	int x,y;
-	
+//	test
 	public int getX() {
-		return x;
+		return x ;
 	}
 
 	public void setX(int x) {
