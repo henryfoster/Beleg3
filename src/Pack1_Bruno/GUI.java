@@ -1,4 +1,4 @@
-package Pack1;
+package Pack1_Bruno;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;

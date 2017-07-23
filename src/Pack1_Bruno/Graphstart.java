@@ -1,4 +1,4 @@
-package Pack1;
+package Pack1_Bruno;
 
 public class Graphstart
 {
@@ -55,7 +55,7 @@ public class Graphstart
   
   
   public void printknoten(int[] knoten){
-	  g
+	  
 	  
 	  
   }
