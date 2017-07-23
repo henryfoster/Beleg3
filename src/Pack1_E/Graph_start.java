@@ -32,7 +32,7 @@ public class Graph_start {
 		n1=knotennr(K1);
 		n2=knotennr(K2);
 			kante[n1][n2] = wert;
-			//kante[n2][n1] = wert;
+			//kante[n2][n1] = wert;t
 	  }
 	  
 	  public void ausgabe2(){  //Matrix ausgabe
