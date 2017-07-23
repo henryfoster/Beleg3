@@ -216,8 +216,6 @@ public class GUI extends JFrame implements ActionListener{
 		start = 1;
 	}else{
 		super.paint(g);
-		
-		
 		for (int i = 0; i < graphen[graphselector.getSelectedIndex()].knot.length; i++){
 			double deg = 360 / graphen[graphselector.getSelectedIndex()].knot.length;
 			deg = deg * i;
