@@ -2,9 +2,17 @@ package Pack1_Bruno;
 
 public class knoten {
 
-	String name;
+	String knotentext;
+	int name;
 	int x,y;
-//	test
+
+	public String getKnotentext() {
+		return knotentext;
+	}
+
+	public void setKnotentext(String knotentext) {
+		this.knotentext = knotentext;
+	}
 	public int getX() {
 		return x ;
 	}
@@ -21,15 +29,15 @@ public class knoten {
 		this.y = y;
 	}
 
-	knoten (String n){
+	knoten (int n){
 		name = n;
 	}
 	
-	public String getname(){
+	public int getname(){
 		return name;
 	}
 	
-	public void setname(String n){
+	public void setname(int n){
 		name = n;
 	}
 }
