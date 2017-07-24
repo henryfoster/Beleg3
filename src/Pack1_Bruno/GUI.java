@@ -19,17 +19,17 @@ public class GUI extends JFrame implements ActionListener{
 	JSlider nslide, nslide2;
 	public static JPanel table, pane, tabpane1, tabpane2, tabpane3;
 	TitledBorder border;
-	JButton newGraph, newKante, newKnoten, print;
-	JComboBox<Integer> graphselector;
+	JButton newGraph, newKante, newKnoten, print, deleteKante, deleteKnoten;
+	JComboBox<Integer> graphselector, graphselector2, knotenselector, knotenselector2;
 	public static int drawpointx, drawpointy;
 	public static int rand = 20;
 	graph[] graphen = new graph[19];
 	JTabbedPane tabs;
 	JComponent panel;
-	JTextArea knotenanzahl, kantenanzahl, bezeichnung;
+	public JTextArea knotenanzahl, kantenanzahl, bezeichnung;
 	
 	JScrollPane JSP;
-	public JTextArea jTextArea;
+	public JTextArea jTextArea, kantenwert;
 	public JTextField name;
 	
 	int start = 0;
@@ -104,7 +104,7 @@ public class GUI extends JFrame implements ActionListener{
         nslide.setPaintLabels(true);
         nslide.setBackground(null);
         nslide.setBounds(0, 28,tabs.getWidth()-5,60);
-//        nslide.addAncestorListener(action);
+//        nslide.addActionListener(this.nslide);
         tabpane1.add(nslide);
         
         kantenanzahl = new JTextArea();
@@ -114,7 +114,7 @@ public class GUI extends JFrame implements ActionListener{
         kantenanzahl.setBounds(5,90, tabs.getWidth()-onePx, 20);	
         tabpane1.add(kantenanzahl);
         
-        nslide2 = new JSlider(JSlider.HORIZONTAL, 2 , 20 , 2);
+        nslide2 = new JSlider(JSlider.HORIZONTAL, 1 , 20 , 1);
         nslide2.setBorder(border);
         nslide2.setMajorTickSpacing(1);
         nslide2.setPaintTicks(true);
@@ -147,27 +147,58 @@ public class GUI extends JFrame implements ActionListener{
     	tabpane2.setLayout(null);
     	tabs.addTab("Graph bearbeiten", tabpane2);
     	
+    	 graphselector2 = new JComboBox<Integer>();
+         graphselector2.setBounds( onePx/2, onePy , tabs.getWidth()- onePx, 50);
+         graphselector2.setBackground(null);
+         graphselector2.addActionListener(graphselector2);
+         tabpane2.add(graphselector2);
     	
+    	newKnoten = new JButton("neuen Knoten erzeugen");
+    	newKnoten.setBounds(onePx/2, 60 , tabs.getWidth()- onePx, 50);
+        newKnoten.setBackground(null);
+        newKnoten.addActionListener(this);
+        tabpane2.add(newKnoten);
+        
+        knotenselector = new JComboBox<Integer>();
+        knotenselector.setBounds(onePx/2, 130, tabs.getWidth()- onePx, 50);
+        knotenselector.setBackground(null);
+        tabpane2.add(knotenselector);
+        
+        knotenselector2 = new JComboBox<Integer>();
+        knotenselector2.setBounds(onePx/2, 190, tabs.getWidth()- onePx, 50);
+        knotenselector2.setBackground(null);
+        tabpane2.add(knotenselector2);
+        
+        kantenwert = new JTextArea();
+        kantenwert.setBounds(onePx/2,250, tabs.getWidth()-onePx, 20);	
+        tabpane2.add(kantenwert);
         
         newKante = new JButton("neue Kante erzeugen");
-        newKante.setBounds(20, 300 , 330, 50);
+        newKante.setBounds(onePx/2, 280 , tabs.getWidth()-onePx, 50);
         newKante.setBackground(null);
         newKante.addActionListener(this);
-//        add(newKante);
+        tabpane2.add(newKante);
+        
+        deleteKante = new JButton("Kante löschen");
+        deleteKante.setBounds(onePx/2, 330 , tabs.getWidth()-onePx, 50);
+        deleteKante.setBackground(null);
+        deleteKante.addActionListener(this);
+        tabpane2.add(deleteKante);
+        
+        tabpane3 = new JPanel();
+    	tabpane3.setLayout(null);
+    	tabs.addTab("Graph zeichnen", tabpane3);
         
         print = new JButton("ausgewählten Graph zeichnen");
         print.setBounds(20, 200 , 330, 50);
         print.setBackground(null);
         print.addActionListener(this);
-//        add(print);
+        tabpane3.add(print);
         
         graphselector = new JComboBox<Integer>();
         graphselector.setBounds(20, 150 , 330, 50);
         graphselector.setBackground(null);
-//        add(graphselector);
-        
-        
-        
+        tabpane3.add(graphselector);
         
         
         jTextArea = new JTextArea();
@@ -175,37 +206,54 @@ public class GUI extends JFrame implements ActionListener{
         jTextArea.setEditable(false);
         jTextArea.setWrapStyleWord(true);
         jTextArea.setBounds(10, 780, onePx * 19, 280);
-     
+        add(jTextArea);
+        
         JSP = new JScrollPane(jTextArea);
         JSP.setBounds(10, 780, onePx * 19, 280);
         add(JSP);
         
         setVisible(true);
-        
+       
 	}
+	
+	
 	
 	 public void actionPerformed (ActionEvent ae){
  
 	        if(ae.getSource() == this.newGraph){
-	            graphen[gc] = new graph(nslide.getValue(),name.getText());
+	           int knoten = nslide.getValue();
+	        	if (nslide2.getValue() > ((knoten*knoten)-knoten)/2) {
+	        		jTextArea.append("Es ist nicht mölich einen gerichteten Graphen mit " 
+	        						+ knoten + " Knoten und " + nslide2.getValue() + " Kanten"
+	        						+ " zu erzeugen");
+	        	}else{
+	        	graphen[gc] = new graph(nslide.getValue(),nslide2.getValue(),name.getText());
 	            graphselector.addItem(gc);
+	            graphselector2.addItem(gc);
 	        	if (name.getText().length() == 0){
 	            jTextArea.append("Graph " + gc + " wurde erstellt\n" );
 	        	}else{
 	        		jTextArea.append(name.getText() + " wurde erstellt\n");
 	        		name.setText("");
 	        	}
-	        	gc ++;		
-	        }
-	        else if(ae.getSource() == this.newKante){
-	        	
-	        }
-	        else if(ae.getSource() == this.print){
+	        	gc ++;	
+	        	}
+	        }else if(ae.getSource() == this.newKnoten){
+	        	graphen[graphselector.getSelectedIndex()].neuknoten();
+	        	jTextArea.append("neuer Knoten zu Graph " + graphselector.getSelectedIndex() + " hinzugefügt.\n");
+	        }else if(ae.getSource() == this.newKante){
+	        	graphen[graphselector.getSelectedIndex()].kanteneu(knotenselector.getSelectedIndex(), knotenselector2.getSelectedIndex(), Integer.parseInt(kantenwert.getText()));
+	        }else if(ae.getSource() == this.print){
 	        	repaint();
+	        }else if(ae.getSource() == this.deleteKante){
+//	        	graphen[graphselector.getSelectedIndex()].kanteloeschen(K1, K2);
+	        }else if(ae.getSource() == this.deleteKnoten){
 	        	
-	        }
-	        else if(ae.getSource() == this.nslide){
-	        	
+	        }else if(ae.getSource() == this.graphselector2){
+	        	for (int i = 0; i < graphen[graphselector2.getSelectedIndex()].knot.length; i++){
+	        		knotenselector.addItem(graphen[graphselector2.getSelectedIndex()].knot[i].getname());
+	        		knotenselector2.addItem(graphen[graphselector2.getSelectedIndex()].knot[i].getname());
+	        	}
 	        }
 	    }
 	
@@ -218,17 +266,58 @@ public class GUI extends JFrame implements ActionListener{
 		super.paint(g);
 		for (int i = 0; i < graphen[graphselector.getSelectedIndex()].knot.length; i++){
 			double deg = 360 / graphen[graphselector.getSelectedIndex()].knot.length;
-			deg = deg * i;
-			if (i+1 % 2 == 0){
-				deg = deg + 180;
+			deg = deg * i + deg;
+			if (i % 2 == 1){
+				deg += 180;
 			}
 			g.setColor(Color.GREEN);
 			double posx =(Math.cos(deg))*zr+zx;
 			double posy =(Math.sin(deg))*zr+zy;
+			graphen[graphselector.getSelectedIndex()].knot[i].setX((int) posx);
+			graphen[graphselector.getSelectedIndex()].knot[i].setY((int) posy);
 			g.fillArc((int)posx,(int)posy, 50, 50, 360, 360); 
 			g.setColor(Color.BLACK);
-			g.drawString(graphen[graphselector.getSelectedIndex()].knot[i].getname(),(int)posx , (int)posy);
+			g.drawString("Graph" + graphen[graphselector.getSelectedIndex()].knot[i].getname()
+					,(int)posx , (int)posy);
+			if (i > 0){
+				int xcorrect;
+				int ycorrect;
+				
+				g.setColor(Color.BLUE);
+				
+				for (int o = 0; o < graphen[graphselector.getSelectedIndex()].knot.length; o++ ){
+					if (graphen[graphselector.getSelectedIndex()].knot[o].getX() <=
+						graphen[graphselector.getSelectedIndex()].knot[i].getX()){
+					xcorrect = 25;
+				}else{
+					xcorrect = -25;
+				}
+				
+				if (graphen[graphselector.getSelectedIndex()].knot[o].getY() <= 
+						graphen[graphselector.getSelectedIndex()].knot[i].getY()){
+					ycorrect = 25;
+				}else{
+					ycorrect = -25;
+				}
+					
+					if (graphen[graphselector.getSelectedIndex()].adj[o][i] != 0){
+						g.drawLine(graphen[graphselector.getSelectedIndex()].knot[i].getX()+25
+								,graphen[graphselector.getSelectedIndex()].knot[i].getY()+25
+								, graphen[graphselector.getSelectedIndex()].knot[o].getX()+25 + xcorrect
+								, graphen[graphselector.getSelectedIndex()].knot[o].getY()+25 + ycorrect);
+					
+					g.setColor(Color.RED);
+				g.drawString(""+ graphen[graphselector.getSelectedIndex()].adj[o][i], (graphen[graphselector.getSelectedIndex()].knot[o].getX()+25 
+						- graphen[graphselector.getSelectedIndex()].knot[i].getX()+25)/2 
+						+ graphen[graphselector.getSelectedIndex()].knot[i].getX()+25
+						+ xcorrect,(graphen[graphselector.getSelectedIndex()].knot[o].getY()+25 
+								- graphen[graphselector.getSelectedIndex()].knot[i].getY()+25)/2 
+								+ graphen[graphselector.getSelectedIndex()].knot[i].getY()+25 + ycorrect );
 			
+					}
+				}
+				
+				}
        }
 		g.setColor(Color.DARK_GRAY);
 		g.setFont(new Font("Impact", Font.BOLD, 50));
