@@ -9,21 +9,45 @@ import java.io.IOException;
 
 public class Graph_start {
 	private int knzahl = 0;
-	  int [][] kantenMatrix;  // Kantenmatrix
-	  int [] knoten;  // Knotenvektor
+	  int [][] kantenMatrix;					//Adiazenzmatrix
+	  int [] knoten;  							// Knotenarray
 	  int KantenAnzahl1 = 0;
-	  Graph_start(int kn) {  // kn maximale Knotenzahl
+	  Graph_start(int kn) {  					// kn maximale Knotenzahl
 		  kantenMatrix = new int [kn][kn];
 		  knoten = new int [kn];
-		  for (int i=0; i < knzahl; i++)     // Initialisieren: alle Kanten-
+		  for (int i=0; i < knzahl; i++)     	// Initialisieren: alle Kanten mit 0
 		      for (int j=0; j < knzahl; j++)
 		          kantenMatrix [i][j] = 0;
 	  }
 
 	  public void knotenneu (int Kn) {
-	//Pruefen, ob Knoten schon existiert fehlt noch!
-		knoten[knzahl] = Kn;
-		knzahl ++;
+		  boolean vorhanden = false;
+		  for(int i = 0; i < knoten.length;i++){	//Prüft ob der Knoten nicht schon vorhanden ist
+			if(Kn == 0){
+				System.out.println("Knoten darf nicht 0 sein");
+				vorhanden = true;
+				break;
+			}else if(Kn == knoten[i] ){
+				System.out.println("Knoten "+ Kn + " schon vorhanden!");
+				vorhanden = true;
+			}
+			  
+		}
+		if(!vorhanden){
+			try{
+				for(int i = 0; i < knoten.length; i++){
+					if(knoten[i] == 0){
+						knoten[i] = Kn;
+						knzahl ++;
+						break;
+					}
+				}
+			}catch(ArrayIndexOutOfBoundsException e){
+				System.out.println("Nicht genug Platz");
+			}
+			
+		}
+		
 	  }
 
 	  private int knotennr (int kn) {
@@ -35,26 +59,45 @@ public class Graph_start {
 
 	  public void kanteneu(int K1, int K2, int wert) {  //Von: K1 nach K2
 		int n1,n2;
-		//Pruefen, ob beide Knoten schon existieren !
+		boolean k1 = false;
+		boolean k2 = false;
 		n1=knotennr(K1);
 		n2=knotennr(K2);
+		for(int i = 0;i < knoten.length; i++){
+			if(knoten[i] == K1){
+				k1 = true;
+			}
+		}
+		for(int i = 0;i < knoten.length; i++){
+			if(knoten[i] == K2){
+				k2 = true;
+			}
+		}
+		
+		if(k1 && k2){
 			kantenMatrix[n1][n2] = wert;
 			KantenAnzahl1++;
-			//kante[n2][n1] = wert;t
+		}else{
+			System.out.println("zum erzeugen der Kante fehlt ein Knoten");
+		}
+		
+			
+		
+			
 	  }
 	  
 	  public void ausgabe2(){  //Matrix ausgabe
 		  System.out.print("     ");
-		  for(int k = 0; k<knzahl; k++){
+		  for(int k = 0; k<knoten.length; k++){
 			  
 			  System.out.printf("%5d",knoten[k]);
 		  }
 		  
 		  
-		  for(int i = 0; i < knzahl; i++){
+		  for(int i = 0; i < knoten.length; i++){
 			  System.out.println();
 			  System.out.printf("%5d",knoten[i]);
-			  for(int j = 0; j<knzahl; j++){
+			  for(int j = 0; j<knoten.length; j++){
 				  System.out.printf("%5d", kantenMatrix[i][j]);
 			  }
 		  }
@@ -67,17 +110,17 @@ public class Graph_start {
 		  	  	System.out.print( "  " + knoten[i] );
 
 		  	System.out.println( "\n\n Kantenliste\n" );
-		  	for (int i=0; i < knzahl; i++) {    // Initialisieren: alle Kanten
+		  	for (int i=0; i < knzahl; i++) {    				// Initialisieren: alle Kanten
 			    for (int j=0; j < knzahl; j++) {
-			    	if (kantenMatrix [i][j] != 0)
-		//	    	System.out.print("  Kante "+knoten[i]+" -> "+knoten[j]);
+			    	if (kantenMatrix [i][j] != 0)	
 	                        System.out.print(" Kante " +knoten[i]+ " -> " +knoten[j]
 	                                + " ("+  kantenMatrix [i][j]+")   ");
 	                    }
 			    System.out.println();
 			}
 	  }
-	// weiter Methoden noch zu realisieren6ruu
+	  
+	  // weiter Methoden 
 	  
 	  public int indexSuche(int kn){
 		  for(int i = 0; i < knzahl; i++){
@@ -96,7 +139,7 @@ public class Graph_start {
 			   
 			   kantenMatrix[i][index] = 0;
 			   kantenMatrix[index][i] = 0;
-			   System.out.println(i);
+			   //System.out.println(i);
 		   }
 		   
 	   }
@@ -120,9 +163,9 @@ public class Graph_start {
 			   }
 		   }
 	   }
+	  
+	   
 	   public  void schreiber(){
-			
-			
 			FileWriter writer;
 			File datei = new File("daten.txt");
 			try {
@@ -156,6 +199,8 @@ public class Graph_start {
 		
 	   public static void DateiLeser(){   
 	        BufferedReader br = null;
+	        String[] kantenzahl;
+ 
 	        try {
 	        	
 	        	br = new BufferedReader(new FileReader(new File("daten.txt")));
@@ -169,9 +214,7 @@ public class Graph_start {
 	                
 	                String[] knoten = parts[1].split("\\s+");
 	                String[] flags = parts[0].split("\\s+");
-	                //System.out.println(parts[0]);
-	                //System.out.println(parts[1]);
-	                //System.out.println(parts[2]);
+	               
 	                int knotenmenge = Integer.parseInt(flags[0]);
 	                int kantenmenge = Integer.parseInt(flags[1]);
 	                int[] knotenArray = new int[knotenmenge];
@@ -182,17 +225,14 @@ public class Graph_start {
 	                Graph_start g = new Graph_start (15);
 	                
 	                
-	                String[] kantenzahl;
-	                //System.out.println(kantenzahl[2]);
-	                int[][] KantenMatrix = new int[kantenmenge][3];
 	                
+	                
+	                int[][] KantenMatrix = new int[kantenmenge][3];
 	                for(int i = 0; i < kantenmenge; i++){
 	                	for(int j = 0; j < 3; j++){
 	                		kantenzahl = kanten[i].split("\\s+");
 		                	KantenMatrix[i][j] = Integer.parseInt(kantenzahl[j]);
-	                		
-		                	//System.out.println(kantenMatrix[i][j]);
-		                	
+	
 	                	}
 	                	
 	                }
@@ -205,10 +245,7 @@ public class Graph_start {
 	                }
 	                g.ausgabe2();
 	                System.out.println("Fertig eingelesen");
-	                
-	                
-	                
-	                
+   
 	            }
 	        } catch(FileNotFoundException e) {
 	            e.printStackTrace();
@@ -216,6 +253,9 @@ public class Graph_start {
 	            e.printStackTrace();
 	            
 	        } 
+	        catch(NullPointerException e) {
+	            System.out.println("file empty");
+	        }
 	        catch(ArrayIndexOutOfBoundsException e) {
 	            
 	        	e.printStackTrace();
