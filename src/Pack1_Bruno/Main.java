@@ -4,6 +4,6 @@ public class Main {
 	
 	public static void main(String[] args){
 	GUI gui = new GUI();
-	//hero
+	// test test das ist die main
 }
 }
