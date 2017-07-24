@@ -150,7 +150,7 @@ public class GUI extends JFrame implements ActionListener{
     	 graphselector2 = new JComboBox<Integer>();
          graphselector2.setBounds( onePx/2, onePy , tabs.getWidth()- onePx, 50);
          graphselector2.setBackground(null);
-         graphselector2.addActionListener(graphselector2);
+         graphselector2.addActionListener(this);
          tabpane2.add(graphselector2);
     	
     	newKnoten = new JButton("neuen Knoten erzeugen");
@@ -250,6 +250,7 @@ public class GUI extends JFrame implements ActionListener{
 	        }else if(ae.getSource() == this.deleteKnoten){
 	        	
 	        }else if(ae.getSource() == this.graphselector2){
+	        	System.out.println("kanten füllen");
 	        	for (int i = 0; i < graphen[graphselector2.getSelectedIndex()].knot.length; i++){
 	        		knotenselector.addItem(graphen[graphselector2.getSelectedIndex()].knot[i].getname());
 	        		knotenselector2.addItem(graphen[graphselector2.getSelectedIndex()].knot[i].getname());
