@@ -246,11 +246,10 @@ public class GUI extends JFrame implements ActionListener{
 	        }else if(ae.getSource() == this.print){
 	        	repaint();
 	        }else if(ae.getSource() == this.deleteKante){
-//	        	graphen[graphselector.getSelectedIndex()].kanteloeschen(K1, K2);
+	        	graphen[graphselector.getSelectedIndex()].kanteloeschen(knotenselector.getSelectedIndex(), knotenselector2.getSelectedIndex());
 	        }else if(ae.getSource() == this.deleteKnoten){
 	        	
 	        }else if(ae.getSource() == this.graphselector2){
-	        	System.out.println("kanten füllen");
 	        	for (int i = 0; i < graphen[graphselector2.getSelectedIndex()].knot.length; i++){
 	        		knotenselector.addItem(graphen[graphselector2.getSelectedIndex()].knot[i].getname());
 	        		knotenselector2.addItem(graphen[graphselector2.getSelectedIndex()].knot[i].getname());
@@ -267,18 +266,20 @@ public class GUI extends JFrame implements ActionListener{
 		super.paint(g);
 		for (int i = 0; i < graphen[graphselector.getSelectedIndex()].knot.length; i++){
 			double deg = 360 / graphen[graphselector.getSelectedIndex()].knot.length;
-			deg = deg * i + deg;
-			if (i % 2 == 1){
-				deg += 180;
-			}
+			deg = ((deg * i)/180)*Math.PI;
+			
+			
+			
+			
+		
 			g.setColor(Color.GREEN);
-			double posx =(Math.cos(deg))*zr+zx;
-			double posy =(Math.sin(deg))*zr+zy;
+			double posx =Math.cos(deg)*zr+zx;
+			double posy =Math.sin(deg)*zr+zy;
 			graphen[graphselector.getSelectedIndex()].knot[i].setX((int) posx);
 			graphen[graphselector.getSelectedIndex()].knot[i].setY((int) posy);
 			g.fillArc((int)posx,(int)posy, 50, 50, 360, 360); 
 			g.setColor(Color.BLACK);
-			g.drawString("Graph" + graphen[graphselector.getSelectedIndex()].knot[i].getname()
+			g.drawString("Knoten" + graphen[graphselector.getSelectedIndex()].knot[i].getname()
 					,(int)posx , (int)posy);
 			if (i > 0){
 				int xcorrect;
@@ -308,7 +309,8 @@ public class GUI extends JFrame implements ActionListener{
 								, graphen[graphselector.getSelectedIndex()].knot[o].getY()+25 + ycorrect);
 					
 					g.setColor(Color.RED);
-				g.drawString(""+ graphen[graphselector.getSelectedIndex()].adj[o][i], (graphen[graphselector.getSelectedIndex()].knot[o].getX()+25 
+				g.drawString(""+ graphen[graphselector.getSelectedIndex()].adj[o][i],
+						(graphen[graphselector.getSelectedIndex()].knot[o].getX()+25 
 						- graphen[graphselector.getSelectedIndex()].knot[i].getX()+25)/2 
 						+ graphen[graphselector.getSelectedIndex()].knot[i].getX()+25
 						+ xcorrect,(graphen[graphselector.getSelectedIndex()].knot[o].getY()+25 

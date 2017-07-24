@@ -53,6 +53,13 @@ public class graph {
 		knot = new knoten[randominteger()];
 	}
 	
+	public void deleteknoten(int k){
+		tempknot = new tempknot();
+		tempadj = adj;
+		
+		for (int i = 0; i< knot)
+		
+	}
 	
 	public int randominteger(){
 		int x = (int) (Math.random() * 10 % 15 )+1;
@@ -91,16 +98,16 @@ public class graph {
 	}
 	
 	 public void kanteneu(int K1, int K2, int wert) {  //Von: K1 nach K2
-			if ( adj[K1][K2] != 0){	
+			if ( adj[K2][K1] != 0){	
 				
 			}else{
-			adj[K1][K2] = wert;
+			adj[K2][K1] = wert;
 			}		
 				
 		  }
 	
 	 public void kanteloeschen (int K1, int K2) {
-		 adj[K1][K2] = 0;
+		 adj[K2][K1] = 0;
 	 }
 		  
 	
