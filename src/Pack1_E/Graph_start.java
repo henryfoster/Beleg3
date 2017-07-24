@@ -275,5 +275,5 @@ public class Graph_start {
 	        
 	    }
 
-	// fakultativ Breitensuche, Tiefensuche oder Wegsuchehgtcdcgt
+	// fakultativ Breitensuche, Tiefensuche oder Wegsuchehgtcdcgth
 }
