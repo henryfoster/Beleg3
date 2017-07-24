@@ -3,7 +3,7 @@ package Pack1_E;
 public class Main {
 
     public static void main(String[] args) {
-        Graph_start g = new Graph_start (15);
+        Graph_start g = new Graph_start (4);
         g.knotenneu (3);
         g.knotenneu (5);
         g.kanteneu  (3,5,21);
@@ -16,8 +16,9 @@ public class Main {
         g.ausgabe();
         
         g.ausgabe2();
+        //g.schreiber();
         System.out.println();
-        g.knotenloeschen(4);
+        /*g.knotenloeschen(4);
         
         System.out.println();
         System.out.println();
@@ -32,7 +33,8 @@ public class Main {
        // g.knotenneu (7);
        // g.kanteneu  (7,8,29);
         //g.ausgabe();
- 
+ */
+    	Graph_start.DateiLeser();
     }
 
 
