@@ -11,7 +11,12 @@ public class graph {
 	
 	int[][] adj;
 	int[][] tempadj;
-	
+/**
+ * 	
+ * @param knzahl
+ * @param kazahl
+ * @param n
+ */
 	graph(int knzahl, int kazahl, String n){
 		counter = 0;
 		name = n;
@@ -49,10 +54,10 @@ public class graph {
 		}
 	}
 	
-	public void newrandomgraph(){
-		knot = new knoten[randominteger()];
-	}
-	
+	/**
+	 * 
+	 * @param k
+	 */
 	public void deleteknoten(int k){
 		tempknot = new knoten[knot.length-1];
 		int hanspeter = 0;
@@ -101,11 +106,6 @@ public class graph {
 		
 	}
 	
-	public int randominteger(){
-		int x = (int) (Math.random() * 10 % 15 )+1;
-		return x;
-	}
-	
 	public void neuknoten(){
 		tempknot = knot;
 		knot = new knoten[tempknot.length+1];
@@ -129,21 +129,13 @@ public class graph {
 				adj[i][o] = tempadj[i][o];
 			}
 		}
-		
-//		for (int i = 0; i < adj.length ; i++ ){
-//			for (int o = 0; o < adj[0].length; o++){
-//				System.out.println(adj[i][o]);
-//			}
-//		}
 	}
 	
 	 public void kanteneu(int K1, int K2, int wert) {  //Von: K1 nach K2
-			if ( adj[K2][K1] != 0){	
-				
+			if ( adj[K2][K1] != 0){		
 			}else{
 			adj[K2][K1] = wert;
-			}		
-				
+			}			
 		  }
 	
 	 public void kanteloeschen (int K1, int K2) {
