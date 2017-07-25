@@ -19,7 +19,7 @@ public class GUI extends JFrame implements ActionListener{
 	JSlider nslide, nslide2;
 	public static JPanel table, pane, tabpane1, tabpane2, tabpane3;
 	TitledBorder border;
-	JButton newGraph, newKante, newKnoten, print, deleteKante, deleteKnoten;
+	JButton newGraph, newKante, newKnoten, print, deleteKante, deleteKnoten, emptygraph;
 	JComboBox<Integer> graphselector, graphselector2, knotenselector, knotenselector2;
 	public static int drawpointx, drawpointy;
 	public static int rand = 20;
@@ -94,7 +94,7 @@ public class GUI extends JFrame implements ActionListener{
         knotenanzahl.setBounds(5,onePy, tabs.getWidth()-onePx, 20);	
         tabpane1.add(knotenanzahl);
         
-        nslide = new JSlider(JSlider.HORIZONTAL, 2 , 20 , 2);
+        nslide = new JSlider(JSlider.HORIZONTAL, 0 , 20 , 0);
         nslide.setBorder(border);
         nslide.setMajorTickSpacing(1);
         nslide.setPaintTicks(true);
@@ -104,7 +104,6 @@ public class GUI extends JFrame implements ActionListener{
         nslide.setPaintLabels(true);
         nslide.setBackground(null);
         nslide.setBounds(0, 28,tabs.getWidth()-5,60);
-//        nslide.addActionListener(this.nslide);
         tabpane1.add(nslide);
         
         kantenanzahl = new JTextArea();
@@ -114,7 +113,7 @@ public class GUI extends JFrame implements ActionListener{
         kantenanzahl.setBounds(5,90, tabs.getWidth()-onePx, 20);	
         tabpane1.add(kantenanzahl);
         
-        nslide2 = new JSlider(JSlider.HORIZONTAL, 1 , 20 , 1);
+        nslide2 = new JSlider(JSlider.HORIZONTAL, 0 , 20 , 0);
         nslide2.setBorder(border);
         nslide2.setMajorTickSpacing(1);
         nslide2.setPaintTicks(true);
@@ -185,6 +184,12 @@ public class GUI extends JFrame implements ActionListener{
         deleteKante.addActionListener(this);
         tabpane2.add(deleteKante);
         
+        deleteKnoten = new JButton("Knoten löschen");
+        deleteKnoten.setBounds(onePx/2, 400 , tabs.getWidth()-onePx, 50);
+        deleteKnoten.setBackground(null);
+        deleteKnoten.addActionListener(this);
+        tabpane2.add(deleteKnoten);
+        
         tabpane3 = new JPanel();
     	tabpane3.setLayout(null);
     	tabs.addTab("Graph zeichnen", tabpane3);
@@ -248,7 +253,10 @@ public class GUI extends JFrame implements ActionListener{
 	        }else if(ae.getSource() == this.deleteKante){
 	        	graphen[graphselector.getSelectedIndex()].kanteloeschen(knotenselector.getSelectedIndex(), knotenselector2.getSelectedIndex());
 	        }else if(ae.getSource() == this.deleteKnoten){
-	        	
+	        	graphen[graphselector.getSelectedIndex()].deleteknoten(knotenselector.getSelectedIndex());
+	        	jTextArea.append("Knoten " + knotenselector.getSelectedIndex() + " wurde gelöscht");
+	        	knotenselector.remove(knotenselector.getSelectedIndex());
+        		knotenselector2.remove(knotenselector.getSelectedIndex());
 	        }else if(ae.getSource() == this.graphselector2){
 	        	for (int i = 0; i < graphen[graphselector2.getSelectedIndex()].knot.length; i++){
 	        		knotenselector.addItem(graphen[graphselector2.getSelectedIndex()].knot[i].getname());

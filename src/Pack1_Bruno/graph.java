@@ -54,10 +54,50 @@ public class graph {
 	}
 	
 	public void deleteknoten(int k){
-		tempknot = new tempknot();
-		tempadj = adj;
+		tempknot = new knoten[knot.length-1];
+		int hanspeter = 0;
+		int hanspeter2 = 0;
 		
-		for (int i = 0; i< knot)
+		for (int i = 0; i< tempknot.length; i++){
+			if (i == k){
+				hanspeter = 1;
+			}
+			tempknot[i] = knot[i + hanspeter];
+		}
+		
+		hanspeter = 0;
+		
+		knot = new knoten[tempknot.length];
+		
+		for (int i = 0; i < knot.length; i++){
+			knot[i] = tempknot[i];
+		}
+		
+		tempadj = new int [adj.length-1][adj.length-1];
+		
+		for (int i = 0; i < tempadj.length; i++ ){
+			if (i == k){
+				hanspeter = 1;
+			}
+			for (int o = 0; o < tempadj.length; o++){
+				if (o == k){
+					hanspeter2 = 1;
+				}
+				tempadj[i][o] = adj[i+hanspeter][o + hanspeter2];
+			}
+		}
+		
+		hanspeter = 0;
+		hanspeter2 = 0;
+		
+		adj = new int[tempadj.length][tempadj.length];
+		
+		for (int i = 0; i < tempadj.length; i++ ){
+			for (int o = 0; o < tempadj.length; o++){
+				adj[i][o] = tempadj[i][o];
+			}
+		}
+		
 		
 	}
 	
