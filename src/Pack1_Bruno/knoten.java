@@ -37,6 +37,11 @@ public class knoten {
 		return name;
 	}
 	
+	/**
+	 * Setter für 
+	 * @param n
+	 */
+	
 	public void setname(int n){
 		name = n;
 	}
