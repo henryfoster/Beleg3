@@ -19,7 +19,7 @@ public class GUI extends JFrame implements ActionListener{
 	JSlider nslide, nslide2;
 	public static JPanel table, pane, tabpane1, tabpane2, tabpane3;
 	TitledBorder border;
-	JButton newGraph, newKante, newKnoten, print, deleteKante, deleteKnoten, emptygraph;
+	JButton newGraph, newKante, newKnoten, print, deleteKante, deleteKnoten;
 	JComboBox<Integer> graphselector, graphselector2, knotenselector, knotenselector2;
 	public static int drawpointx, drawpointy;
 	public static int rand = 20;
