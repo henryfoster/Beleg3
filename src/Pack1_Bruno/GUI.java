@@ -1,3 +1,4 @@
+//@Author:Bruno Wendland, Eduard Andreev
 package Pack1_Bruno;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ public class GUI extends JFrame implements ActionListener{
 	JSlider nslide, nslide2;
 	public static JPanel table, pane, tabpane1, tabpane2, tabpane3;
 	TitledBorder border;
-	JButton newGraph, newKante, newKnoten, print, deleteKante, deleteKnoten;
+	JButton newGraph, newKante, newKnoten, print, deleteKante, deleteKnoten, randomgraph;
 	JComboBox<Integer> graphselector, graphselector2, knotenselector, knotenselector2;
 	public static int drawpointx, drawpointy;
 	public static int rand = 20;
@@ -142,6 +143,12 @@ public class GUI extends JFrame implements ActionListener{
         newGraph.addActionListener(this);
         tabpane1.add(newGraph);
         
+        randomgraph = new JButton("zufälliger Graph");
+        randomgraph.setBounds(onePx/2, 350, tabs.getWidth()- onePx, 50);
+        randomgraph.setBackground(null);
+        randomgraph.addActionListener(this);
+        tabpane1.add(randomgraph);
+        
         tabpane2 = new JPanel();
     	tabpane2.setLayout(null);
     	tabs.addTab("Graph bearbeiten", tabpane2);
@@ -222,7 +229,9 @@ public class GUI extends JFrame implements ActionListener{
 	}
 	
 	
-	
+	/**
+	 * anhand von dem ActionEvent werden die Methoden der Klasse Graph aufgerufen
+	 */
 	 public void actionPerformed (ActionEvent ae){
  
 	        if(ae.getSource() == this.newGraph){
@@ -257,6 +266,19 @@ public class GUI extends JFrame implements ActionListener{
 	        	jTextArea.append("Knoten " + knotenselector.getSelectedIndex() + " wurde gelöscht");
 	        	knotenselector.remove(knotenselector.getSelectedIndex());
         		knotenselector2.remove(knotenselector.getSelectedIndex());
+	        }else if(ae.getSource() == this.randomgraph){
+	        	 
+		        	
+		        	graphen[gc] = new graph(name.getText());
+		            graphselector.addItem(gc);
+		            graphselector2.addItem(gc);
+		        	if (name.getText().length() == 0){
+		            jTextArea.append("Graph " + gc + " wurde erstellt\n" );
+		        	}else{
+		        		jTextArea.append(name.getText() + " wurde erstellt\n");
+		        		name.setText("");
+		        	}
+		        	gc ++;	
 	        }else if(ae.getSource() == this.graphselector2){
 	        	for (int i = 0; i < graphen[graphselector2.getSelectedIndex()].knot.length; i++){
 	        		knotenselector.addItem(graphen[graphselector2.getSelectedIndex()].knot[i].getname());
@@ -265,6 +287,12 @@ public class GUI extends JFrame implements ActionListener{
 	        }
 	    }
 	
+	 /**
+	 * die Punkte des Graphen werden anhand der Menge berechnet und in Kreisform dargestellt
+	 * die berechneten Punkte werden in dem Knoten gespeichert 
+	 * zu dem Knoten wird noch der Name des Graphen und die Namen der Knoten gezeichnet
+	 * nachdem werden anhand der Adjazenzmatrix die Knoten mit Knotenname gezeichnet
+	 */
 	public void paint(Graphics g) {	
 	
 	if (start == 0){
@@ -275,11 +303,6 @@ public class GUI extends JFrame implements ActionListener{
 		for (int i = 0; i < graphen[graphselector.getSelectedIndex()].knot.length; i++){
 			double deg = 360 / graphen[graphselector.getSelectedIndex()].knot.length;
 			deg = ((deg * i)/180)*Math.PI;
-			
-			
-			
-			
-		
 			g.setColor(Color.GREEN);
 			double posx =Math.cos(deg)*zr+zx;
 			double posy =Math.sin(deg)*zr+zy;

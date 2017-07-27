@@ -11,8 +11,11 @@ public class graph {
 	
 	int[][] adj;
 	int[][] tempadj;
+
 /**
- * 	
+ * Knoten Array wird erzeugt mit vorgegebener Anzahl von Knoten	erzeugt
+ * danach wird ein Adjazenzmatrix erzeugt und mit Nullen gefüllt
+ * danach wird die Matrix mit einer vorgegebenen Anzahl von Werten befüllt 
  * @param knzahl
  * @param kazahl
  * @param n
@@ -54,8 +57,56 @@ public class graph {
 		}
 	}
 	
+	graph(String n){
+		counter = 0;
+		name = n;
+		int knzahl = randomint(4,8);
+		int kazahl = randomint(4,12);
+		knoten = knzahl;
+		kanten = kazahl;
+		knot = new knoten[knzahl];
+		adj = new int[knot.length][knot.length];
+		
+		for (int i = 0; i < adj.length ; i++ ){
+			for (int o = 0; o < adj[0].length; o++){
+				adj[i][o]= 0;
+			}
+		}
+		
+		for (int i = 0; i < knot.length; i++ ){
+			knot[i] = new knoten (i);
+		}
+		
+		Random x = new Random();
+		
+		for (int i = 0; i < knot.length; i++){
+			
+			for (int o = 0; o < knot.length; o++){
+				if (i==o){
+					adj[i][o]= 0;
+				}else if(adj[o][i] != 0) {
+					adj[i][o]= 0;
+				}else if (x.nextInt(2) == 1){
+					if (counter < kazahl){
+					adj[i][o]= x.nextInt(20)+1;
+					counter++;
+					}
+				}
+			}
+		}
+	}
+	
+	int randomint(int k, int min){
+		int i;
+		
+		Random x = new Random();
+		i = x.nextInt(k)+8;
+		return i;
+	}
+	
 	/**
-	 * 
+	 * Knoten-Array und Adjazenzmatrix werden in jeweils in eine 2. Array geschrieben, jedoch ohne Zeile und Spalte k
+	 * danach werden neue Arrays für Knoten und Adjazenzmatrix erstellt und mit den Werten der korrigierten Arrays gefüllt
 	 * @param k
 	 */
 	public void deleteknoten(int k){
@@ -102,9 +153,12 @@ public class graph {
 				adj[i][o] = tempadj[i][o];
 			}
 		}
-		
-		
 	}
+	
+	/**
+	 * temporäres Knotenarray dass um 1 größer ist als das vorhandene Knotenarray
+	 * neues Knotenarray wird erstellt welches identisch mit dem temporären Knotenarray ist
+	 */
 	
 	public void neuknoten(){
 		tempknot = knot;
@@ -131,22 +185,39 @@ public class graph {
 		}
 	}
 	
-	 public void kanteneu(int K1, int K2, int wert) {  //Von: K1 nach K2
+	/**
+	 * neuer Wert wird in der Adjazenzmatrix eingefügt
+	 * @param K1
+	 * @param K2
+	 * @param wert //Kantenwert
+	 */
+	 public void kanteneu(int K1, int K2, int wert) {  //Von: K2 nach K1
 			if ( adj[K2][K1] != 0){		
 			}else{
 			adj[K2][K1] = wert;
 			}			
 		  }
-	
+	/**
+	 * ausgewählte Kante wird in der Adjazenzmatrix 0 gesetzt
+	 * @param K1
+	 * @param K2
+	 */
 	 public void kanteloeschen (int K1, int K2) {
 		 adj[K2][K1] = 0;
 	 }
 		  
-	
+	/**
+	 * Getter für Name des Graphen
+	 * @return
+	 */
 	public String getname(){
 		return name;
 	}
 	
+	/**
+	 * Setter für Name des Graphen
+	 * @param n
+	 */
 	public void setname(String n){
 		name = n;
 	}
