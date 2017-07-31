@@ -57,6 +57,11 @@ public class graph {
 		}
 	}
 	
+	/**
+	 * Kostruktor wird mit zufälliger Knoten und Kantenanzahl ausgeführt
+	 * @param n
+	 */
+	
 	graph(String n){
 		counter = 0;
 		name = n;
@@ -95,7 +100,12 @@ public class graph {
 			}
 		}
 	}
-	
+ /**
+  * gibt zufälligen int Wert zurück 
+  * @param k
+  * @param min
+  * @return
+  */
 	int randomint(int k, int min){
 		int i;
 		
